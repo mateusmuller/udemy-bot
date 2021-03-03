@@ -11,4 +11,5 @@ if __name__ == '__main__':
   # udemy_instructor.get_courses_id()
   # print(udemy_instructor.get_courses_json())
   # print(udemy_instructor.get_reviews_json())
-udemy_instructor.get_last_reviews()
+  udemy_instructor.populate_new_reviews()
+  udemy_instructor.compare_reviews()

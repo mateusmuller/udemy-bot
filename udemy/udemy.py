@@ -77,7 +77,20 @@ class UdemyInstructor:
     )
 
     reviews = json.loads(response.content)
+    course_ids = '\n'.join(reviews["id"] for reviews in reviews["results"])
+    return course_ids
 
-    for reviews in reviews["results"]:
-          review_id = reviews["id"]
-          print(review_id)
+  def populate_new_reviews(self):
+    f = open("review_db.txt", "w")
+    f.write(self.get_last_reviews())
+    f.close()
+
+  def compare_reviews(self):
+    f = open("review_db.txt", "r")
+    if f.read() == self.get_last_reviews():
+      f.close()
+      return True
+    f.close()
+    return False
+
+  
