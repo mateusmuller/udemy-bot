@@ -8,8 +8,4 @@ if __name__ == '__main__':
   api_key = os.getenv('UDEMY_API_KEY')
 
   udemy_instructor = UdemyInstructor(api_key)
-  # udemy_instructor.get_courses_id()
-  # print(udemy_instructor.get_courses_json())
-  # print(udemy_instructor.get_reviews_json())
-  udemy_instructor.populate_new_reviews()
-  udemy_instructor.compare_reviews()
+  udemy_instructor.run()
