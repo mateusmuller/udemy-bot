@@ -130,3 +130,6 @@ dmypy.json
 
 # mine
 review_db.txt
+new_reviews.txt
+old_reviews.txt
+db.json

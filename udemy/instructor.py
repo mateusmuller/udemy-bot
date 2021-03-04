@@ -76,15 +76,27 @@ class UdemyInstructor:
   def get_diff_reviews(self):
     with open("old_reviews.txt") as old_reviews:
       with open("new_reviews.txt") as new_reviews:
-        return set(old_reviews).difference(new_reviews)
+        strip_diff = [diff.strip() for diff in set(new_reviews).difference(old_reviews)]
+    return strip_diff
+
+  def set_old_db(self):
+    with open ("new_reviews.txt", "r") as new_reviews:
+      with open ("old_reviews.txt", "w") as old_reviews:
+        old_reviews.write(new_reviews.read())
 
   def show_new_reviews(self):
     with open ("db.json", "r") as file:
-      reviews = json.load(file)
-      for reviews in reviews["results"]:
-        user = reviews["user"]["name"]
-        rating = reviews["rating"]
-        comment = reviews["content"]
 
-        print(f"O usuário {user} deixou a avaliação com nota {rating}. Veja o comentário:")
-        print(f"{comment}")
+      reviews = json.load(file)
+      diff_reviews = self.get_diff_reviews()
+
+      for reviews in reviews["results"]:
+        if reviews["id"] in diff_reviews:
+          user = reviews["user"]["name"]
+          rating = reviews["rating"]
+          comment = reviews["content"]
+
+          print(f"O usuário {user} deixou a avaliação com nota {rating}. Veja o comentário:")
+          print(f"{comment}")
+
+    self.set_old_db()
