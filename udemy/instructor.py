@@ -100,3 +100,8 @@ class UdemyInstructor:
           print(f"{comment}")
 
     self.set_old_db()
+
+  def run(self):
+    self.create_db_file()
+    self.pull_new_reviews()
+    self.show_new_reviews()

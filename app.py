@@ -8,6 +8,4 @@ if __name__ == '__main__':
 
   udemy_instructor = UdemyInstructor(api_key)
   
-  udemy_instructor.create_db_file()
-  udemy_instructor.pull_new_reviews()
-  udemy_instructor.show_new_reviews()
+  udemy_instructor.run()
