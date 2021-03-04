@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from udemy.udemy import UdemyInstructor
+from udemy.instructor import UdemyInstructor
 import os
 
 if __name__ == '__main__':
