@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from udemy.instructor import UdemyInstructor
+from udemy.reviews import UdemyInstructor
 import os
 
 if __name__ == '__main__':
@@ -9,3 +9,6 @@ if __name__ == '__main__':
 
   udemy_instructor = UdemyInstructor(api_key, webhook_url)
   udemy_instructor.run()
+  # print(udemy_instructor.get_reviews_json())
+  # print(udemy_instructor.get_courses_json())
+  # udemy_instructor.get_courses_json()
