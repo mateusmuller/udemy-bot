@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 import requests
 import json
 from os import path
@@ -14,11 +12,12 @@ class UdemyInstructor:
           return json.dumps(load_json, indent=4, sort_keys=True)
         return formatter
 
-  def __init__(self, api_key):
+  def __init__(self, api_key, webhook_url):
     self.api_key = api_key
     self.authorization = {
         'Authorization': 'bearer %s' % self.api_key 
     }
+    self.webhook_url = webhook_url
 
   @Decorators.pretty_json
   def get_reviews_json(self):
@@ -84,9 +83,13 @@ class UdemyInstructor:
       with open ("old_reviews.txt", "w") as old_reviews:
         old_reviews.write(new_reviews.read())
 
+  def create_message(self):
+    pass
+
   def show_new_reviews(self):
     with open ("db.json", "r") as file:
 
+      messages = []
       reviews = json.load(file)
       diff_reviews = self.get_diff_reviews()
 
@@ -96,8 +99,10 @@ class UdemyInstructor:
           rating = reviews["rating"]
           comment = reviews["content"]
 
-          print(f"O usuário {user} deixou a avaliação com nota {rating}. Veja o comentário:")
-          print(f"{comment}")
+          messages.append("O usuário %s avaliou com o score %s!" % (user, rating))
+      
+      payload = {"content": '\n'.join(messages)}
+      requests.post(self.webhook_url, data=payload)
 
     self.set_old_db()
 
