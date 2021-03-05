@@ -1,0 +1,3 @@
+---
+- src: dokku_bot.ansible_dokku
+  version: v2021.2.22
