@@ -140,3 +140,4 @@ deploy_keys/
 db.json
 new_reviews.txt
 old_reviews.txt
+requirements.yml
