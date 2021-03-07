@@ -1,5 +1,6 @@
 import requests
 import json
+import boto3
 from os import path
 from udemy.decorators import Decorators
 
@@ -19,15 +20,6 @@ class UdemyInstructor:
   @Decorators.pretty_json
   def get_courses_json(self):
     return "https://www.udemy.com/instructor-api/v1/taught-courses/courses/"
-
-  @staticmethod
-  def create_db_file():
-    if not path.exists("db/old_reviews.txt"):
-      with open("db/old_reviews.txt", "w") as file:
-        file.write("")
-    if not path.exists("db/new_reviews.txt"):
-      with open("db/new_reviews.txt", "w") as file:
-        file.write("")
 
   def pull_new_reviews(self):
     response = requests.get (
@@ -50,6 +42,7 @@ class UdemyInstructor:
         strip_diff = [diff.strip() for diff in set(new_reviews).difference(old_reviews)]
     return strip_diff
 
+  @staticmethod
   def set_old_db(self):
     with open ("db/new_reviews.txt", "r") as new_reviews:
       with open ("db/old_reviews.txt", "w") as old_reviews:
@@ -77,5 +70,5 @@ class UdemyInstructor:
 
   def run(self):
     self.create_db_file()
-    self.pull_new_reviews()
-    self.show_new_reviews()
+    # self.pull_new_reviews()
+    # self.show_new_reviews()
