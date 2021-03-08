@@ -3,7 +3,7 @@
 from udemy.reviews import UdemyInstructor
 import os
 
-if __name__ == '__main__':
+def handler(event, context):
   api_key = os.getenv('UDEMY_API_KEY')
   webhook_url = os.getenv('DISCORD_WEBHOOK_URL')
 
