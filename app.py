@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from udemy.reviews import UdemyInstructor
+from udemy.instructor import UdemyInstructor
 import os
 
 def handler(event, context):
@@ -9,6 +9,3 @@ def handler(event, context):
 
   udemy_instructor = UdemyInstructor(api_key, webhook_url)
   udemy_instructor.run()
-  # print(udemy_instructor.get_reviews_json())
-  # print(udemy_instructor.get_courses_json())
-  # udemy_instructor.get_courses_json()

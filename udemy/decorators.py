@@ -4,7 +4,7 @@ import requests
 class Decorators():
 
     @classmethod
-    def pretty_json(self, func):
+    def pretty_json(cls, func):
         def formatter(self):
           response = requests.get (
             func(self),
