@@ -27,7 +27,7 @@ jobs:
       IMAGE_TAG: ${{ github.sha }}
     runs-on: ubuntu-latest
     outputs:
-      image_uri: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+      image_uri: "${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"
     needs: test
     steps:
     - uses: actions/checkout@v2
