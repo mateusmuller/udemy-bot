@@ -5,8 +5,6 @@ from udemy.decorators import Decorators
 
 class UdemyInstructor:
 
-  files_directory = "/tmp"
-
   def __init__(self, api_key, webhook_url):
     self.api_key = api_key
     self.webhook_url = webhook_url
@@ -83,13 +81,13 @@ class UdemyInstructor:
     return strip_diff
 
   def move_new_to_old(self):
-    with open ("%s/new_reviews.txt" % (self.files_directory), "r") as new_reviews:
-      with open ("%s/old_reviews.txt" % (self.files_directory), "w") as old_reviews:
+    with open ("/tmp/%s" % self.persistent_files["new"], "r") as new_reviews:
+      with open ("/tmp/%s" % self.persistent_files["old"], "w") as old_reviews:
         old_reviews.write(new_reviews.read())
     self.upload_files()
 
   def get_new_reviews(self):
-    with open ("%s/db.json" % (self.files_directory), "r") as file:
+    with open ("/tmp/%s" % self.persistent_files["db"], "r") as file:
 
       messages = []
       reviews = json.load(file)

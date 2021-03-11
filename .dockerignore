@@ -140,3 +140,6 @@ db.json
 new_reviews.txt
 old_reviews.txt
 requirements.yml
+tests/
+.github/
+dev_requirements.txt
