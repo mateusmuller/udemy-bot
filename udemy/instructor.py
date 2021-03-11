@@ -106,7 +106,13 @@ class UdemyInstructor:
           user = reviews["user"]["name"]
           rating = reviews["rating"]
           comment = reviews["content"]
-          messages.append("O usuário **%s** avaliou com o score **%s**!" % (user, rating))
+          
+          if comment == "":
+            user_message = "O usuário **%s** avaliou com o score **%s**!" % (user, rating)
+            messages.append(user_message)
+          else:
+            user_message = "O usuário **%s** avaliou com o score **%s**! E deixou um comentário: \n \"*%s\"*" % (user, rating, comment)
+            messages.append(user_message)
 
     self.send_webook(messages)
     self.move_new_to_old()
