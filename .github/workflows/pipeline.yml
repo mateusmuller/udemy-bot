@@ -22,7 +22,7 @@ jobs:
   build_and_push:
     name: Push Docker image to ECR
     env:
-      ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      ECR_REGISTRY: 763136696157.dkr.ecr.sa-east-1.amazonaws.com
       ECR_REPOSITORY: udemy-mateusmuller-ecr
       IMAGE_TAG: ${{ github.sha }}
     runs-on: ubuntu-latest
