@@ -65,7 +65,7 @@ class UdemyInstructor:
   """ Pull new reviews from the API and call the functions above"""
   def pull_new_reviews(self):
     response = requests.get (
-      "https://www.udemy.com/instructor-api/v1/taught-courses/reviews/?page_size=30",
+      "https://www.udemy.com/instructor-api/v1/taught-courses/reviews/",
       headers=self.authorization
     )
 
