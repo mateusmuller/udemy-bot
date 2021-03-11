@@ -47,6 +47,4 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-    - name: Sync new image on AWS Lambda
-      run: |
         aws lambda update-function-code --function-name udemy-mateusmuller-function --image-uri $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
