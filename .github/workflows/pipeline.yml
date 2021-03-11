@@ -64,4 +64,4 @@ jobs:
         aws-region: sa-east-1
     - name: Sync new image on AWS Lambda
       run: |
-        aws lambda update-function-code --function-name udemy-mateusmuller-function --image-uri ${{ needs.push_to_registry.outputs.image }}
+        aws lambda update-function-code --function-name udemy-mateusmuller-function --image-uri ${{needs.push_to_registry.outputs.image}}
