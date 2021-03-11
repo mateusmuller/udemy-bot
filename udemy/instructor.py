@@ -38,6 +38,7 @@ class UdemyInstructor:
       else:
         s3.meta.client.upload_file(file, bucket, value)
 
+  """ Receives a response as a parameter and writes to db.json file for persistence"""
   def set_json_db(self, response, file=None):
     if file is None:
       with open ("/tmp/%s" % self.persistent_files["db"], "w") as db:
@@ -46,11 +47,13 @@ class UdemyInstructor:
       with open (file, "w") as db:
         json.dump(response, db, indent=2)
 
+  """Parse the whole db.json and returns only the reviews IDs as a concatenated string"""
   def get_course_id_from_json(self, response):
     reviews = json.loads(response)
     course_ids = "\n".join(reviews["id"] for reviews in reviews["results"])
     return course_ids
 
+  """Write the IDs from get_course_id_from_json to new_reviews.txt file for persistence"""
   def set_new_reviews(self, ids, file=None):
     if file is None:
       with open("/tmp/%s" % self.persistent_files["new"], "w") as new:
@@ -59,6 +62,7 @@ class UdemyInstructor:
       with open(file, "w") as new:
         new.write(ids)
 
+  """ Pull new reviews from the API and call the functions above"""
   def pull_new_reviews(self):
     response = requests.get (
       "https://www.udemy.com/instructor-api/v1/taught-courses/reviews/",
@@ -69,6 +73,7 @@ class UdemyInstructor:
     self.set_json_db(response.json())
     self.set_new_reviews(self.get_course_id_from_json(response.content))
 
+  """ Compare new_reviews.txt with old_reviews.txt and returns the reviews ID that are different from each other"""
   def get_diff_reviews(self, old=None, new=None):
     if old is None or new is None:
       with open("/tmp/%s" % self.persistent_files["old"]) as old_reviews:
@@ -80,12 +85,15 @@ class UdemyInstructor:
           strip_diff = [diff.strip() for diff in set(new_reviews).difference(old_reviews)]
     return strip_diff
 
+  """Move the new_reviews.txt to old_reviews.txt, so it can be compared on the next day"""
   def move_new_to_old(self):
     with open ("/tmp/%s" % self.persistent_files["new"], "r") as new_reviews:
       with open ("/tmp/%s" % self.persistent_files["old"], "w") as old_reviews:
         old_reviews.write(new_reviews.read())
     self.upload_files()
 
+  """Grab the different IDs from get_diff_reviews and parse the db.json to grab the review score, username and comment,
+     concatenate all of them and send a webhook to discord"""
   def get_new_reviews(self):
     with open ("/tmp/%s" % self.persistent_files["db"], "r") as file:
 
@@ -103,6 +111,7 @@ class UdemyInstructor:
     self.send_webook(messages)
     self.move_new_to_old()
 
+  """Send the message to discord"""
   def send_webook(self, messages):
     payload = {"content": "\n".join(messages)}
     requests.post(self.webhook_url, data=payload)

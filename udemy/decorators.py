@@ -3,6 +3,7 @@ import requests
 
 class Decorators():
 
+    """ Makes JSON pretty indenting with 4 spaces """
     @classmethod
     def pretty_json(cls, func):
         def formatter(self):
