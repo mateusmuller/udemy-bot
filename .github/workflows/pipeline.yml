@@ -26,7 +26,7 @@ jobs:
     name: Push Docker image to ECR
     runs-on: ubuntu-latest
     outputs:
-      image: ${{ $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG }}
+      image: ${{ steps.image.outputs.test }}
     needs: build
     steps:
     - uses: actions/checkout@v2
@@ -47,6 +47,9 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+    - id: image
+      run: |
+        echo "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
     
   update_lambda_image:
     name: Update Lambda function image tag
