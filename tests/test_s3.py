@@ -1,7 +1,7 @@
 import pytest
 import os
 import boto3
-from udemy.instructor import UdemyInstructor
+from udemy.reviews import UdemyReview
 from moto import mock_s3
 
 class TestS3():
@@ -28,8 +28,8 @@ class TestS3():
     s3_client.upload_file(str(a_file), "my-test-bucket", "new_reviews.txt")
     s3_client.upload_file(str(a_file), "my-test-bucket", "db.json")
 
-    udemy_instructor = UdemyInstructor("","")
-    udemy_instructor.download_files(bucket="my-test-bucket")
+    udemy_review = UdemyReview("","")
+    udemy_review.download_files(bucket="my-test-bucket")
 
     downloaded_files = {
       "/tmp/old_reviews.txt",
@@ -42,12 +42,12 @@ class TestS3():
       os.remove(file)
 
   def test_upload_files(self, s3_client, s3_test, tmpdir):
-    udemy_instructor = UdemyInstructor("","")
+    udemy_review = UdemyReview("","")
 
     a_file = tmpdir.join('dummy.txt')
     a_file.write("test")
       
-    udemy_instructor.upload_files(str(a_file), "my-test-bucket")
+    udemy_review.upload_files(str(a_file), "my-test-bucket")
 
     uploaded_files = {
       "old_reviews.txt",

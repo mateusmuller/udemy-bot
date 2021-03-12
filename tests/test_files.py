@@ -1,6 +1,6 @@
 import pytest
 import json
-from udemy.instructor import UdemyInstructor
+from udemy.instructor import UdemyReview
 
 class TestFiles():
   
@@ -43,28 +43,28 @@ x01M0VxXW_3gRQUQh-rMiUYqQ==
 
   def test_set_json_db(self, dummy_json, tmpdir):
     a_file = tmpdir.join('db.json')
-    udemy_instructor = UdemyInstructor("","")
-    udemy_instructor.set_json_db(dummy_json, str(a_file))
+    udemy_review = UdemyReview("","")
+    udemy_review.set_json_db(dummy_json, str(a_file))
 
     assert a_file.read() == json.dumps(dummy_json)
 
   def test_get_course_id_from_json (self, dummy_json):
-    udemy_instructor = UdemyInstructor("","")
+    udemy_review = UdemyReview("","")
 
-    assert udemy_instructor.get_course_id_from_json(dummy_json).count("\n") == 11
+    assert udemy_review.get_course_id_from_json(dummy_json).count("\n") == 11
 
   def test_set_new_reviews(self, tmpdir, dummy_course_ids):
     a_file = tmpdir.join('new_reviews.txt')
-    udemy_instructor = UdemyInstructor("","")
-    udemy_instructor.set_new_reviews(dummy_course_ids, str(a_file))
+    udemy_review = UdemyReview("","")
+    udemy_review.set_new_reviews(dummy_course_ids, str(a_file))
 
     assert dummy_course_ids == a_file.read()
 
   def test_get_diff_reviews(self, tmpdir, dummy_course_ids, dummy_new_course_ids):
-    udemy_instructor = UdemyInstructor("","")
+    udemy_review = UdemyReview("","")
     old = tmpdir.join('old_reviews.txt')
     new = tmpdir.join('news_reviews.txt')
     old.write(dummy_course_ids)
     new.write(dummy_new_course_ids)
     
-    assert udemy_instructor.get_diff_reviews(str(old), str(new)) == "h39281h9832c981jksxnkaskl==".split()
+    assert udemy_review.get_diff_reviews(str(old), str(new)) == "h39281h9832c981jksxnkaskl==".split()
