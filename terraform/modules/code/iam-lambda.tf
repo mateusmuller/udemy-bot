@@ -1,5 +1,4 @@
 resource "aws_iam_policy" "udemy_policy_s3" {
-
   name = format("%s-policy-s3", var.project-name)
   
   policy = jsonencode({
@@ -16,11 +15,9 @@ resource "aws_iam_policy" "udemy_policy_s3" {
       },
     ]
   })
-
 }
 
 resource "aws_iam_policy" "udemy_policy_log" {
-
   name = format("%s-policy-log", var.project-name)
   
   policy = jsonencode({
@@ -37,11 +34,9 @@ resource "aws_iam_policy" "udemy_policy_log" {
       },
     ]
   })
-
 }
 
 resource "aws_iam_role" "udemy_role" {
-
   name = format("%s-role", var.project-name)
 
   assume_role_policy = jsonencode({
@@ -62,5 +57,4 @@ resource "aws_iam_role" "udemy_role" {
     aws_iam_policy.udemy_policy_s3.arn, 
     aws_iam_policy.udemy_policy_log.arn
   ]
-
 }
