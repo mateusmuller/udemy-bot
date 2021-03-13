@@ -58,6 +58,9 @@ resource "aws_iam_role" "udemy_role" {
     ]
   })
 
-  managed_policy_arns = [aws_iam_policy.udemy_policy_s3.arn, aws_iam_policy.udemy_policy_log.arn]
+  managed_policy_arns = [
+    aws_iam_policy.udemy_policy_s3.arn, 
+    aws_iam_policy.udemy_policy_log.arn
+  ]
 
 }
